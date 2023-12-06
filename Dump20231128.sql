@@ -215,3 +215,55 @@ select min(peso) nome from gafanhotos where sexo = 'F' and nacionalidade != 'Bra
 -- 9) Quantas gafanhotos Mulheres tem mais de 1.90cm de altura? --
  select count(*) from gafanhotos where sexo ='F' and altura > '1.90';
 
+--------------------------------------------------
+select * from cursos;
+
+select totaulas from cursos order by totaulas; -- seleciona e ordena --
+
+select totaulas, count(*) from cursos -- seleciona e conta --
+ group by totaulas -- grupo de --
+ order by totaulas;  -- ordem de --
+ 
+ select * from cursos where totaulas > 20;
+ 
+ select carga, count(nome) from cursos where totaulas =30 group by carga;
+ 
+ select carga,count(nome) from cursos group by carga
+ having count(nome) > 3;
+ 
+ select ano, count(*) from cursos
+ where totaulas = 30
+ group by ano
+ having ano
+ order by count(*) desc;
+ 
+ select avg(carga) from cursos;
+ 
+ select carga, count(*) from cursos
+ where ano > 2015
+ group by carga
+ having carga > (select avg(carga) from cursos);
+ 
+ select * from gafanhotos;
+ -- Exercícios --
+-- 1) Uma lista com as profissões dos gafanhotos e seus respectivos quantitativos. --
+Select prof, count(*) from gafanhotos Group by prof;
+
+-- 2) Quantos gafanhotos Homens (M) e quantas gafanhotos Mulheres (F) nasceram após 01/01/2005? 
+select sexo, count(*) from gafanhotos where nascimento > '2005-01-01' group by sexo;
+
+-- 3) Uma lista com os gafanhotos que nasceram fora do Brasil, mostrando o páis de origem e total de pessoas nascidas lá. --
+-- Só nos interessam os países que tiverem mais de 3 gafanhotos com essa nacionalidade. --
+Select nacionalidade, count(*) from gafanhotos
+Where nacionalidade != 'Brasil'
+Group by nacionalidade
+Having count(*) > 3;
+
+-- 4) Uma lista agrupada pela altura dos gafanhotos, mostrando quantas pessoas pesam mais de 100kg --
+-- e que estão acima da média de altura de todos os cadastrados. --
+Select altura, count(*) from gafanhotos
+Where peso > '100'
+Group by altura
+Having altura > (select avg(altura) from gafanhotos);
+ 
+
